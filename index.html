@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Off Market Campaign · Team Genc</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,700;0,800;1,800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12324a;        /* deep ocean */
+    --ocean:#1f6f8b;      /* coastal blue */
+    --sea:#5fa8b8;        /* sea glass */
+    --foam:#eaf4f4;       /* surf foam */
+    --sand:#f6f1e7;       /* sand */
+    --sand-2:#ece3d2;
+    --muted:#5b6b75;
+    --line:#dfe6e6;
+    --white:#fffdf9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Open Sans',system-ui,sans-serif;color:var(--ink);background:var(--sand);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;font-weight:500}
+  h1,h2,h3{font-family:Montserrat,system-ui,sans-serif;font-weight:700;letter-spacing:-.01em}
+  h1{font-weight:800}
+  .eyebrow{font-family:Montserrat,sans-serif;font-weight:400}
+  .eyebrow b{font-weight:800}
+
+  /* Hero */
+  .hero{position:relative;overflow:hidden;padding:28px 0 150px;min-height:78vh;display:flex;flex-direction:column;color:#fff;
+    background:linear-gradient(90deg,rgba(10,35,52,.78) 0%,rgba(10,35,52,.45) 50%,rgba(10,35,52,.08) 100%),linear-gradient(180deg,rgba(10,35,52,.35) 0%,rgba(10,35,52,0) 30%,rgba(10,35,52,.45) 100%),url(img/hero.jpg) 62% 35%/cover no-repeat,linear-gradient(160deg,#1f6f8b 0%,#12324a 70%)}
+  .hero>.wrap{width:100%}
+  @media (max-width:640px){.hero{background-position:0 0,0 0,68% 55%}}
+  .topbar{display:flex;justify-content:space-between;align-items:center}
+  .logo{height:40px;width:auto;display:block}
+  .logo-text{font-family:Montserrat,sans-serif;font-size:1.15rem;letter-spacing:.02em;color:#fff}
+  .hero .inner{margin-top:auto;padding-top:80px}
+  .hero .eyebrow{color:#cfe8ec}
+  .hello{font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(1.6rem,4.5vw,2.4rem);color:#fff;margin:18px 0 -6px;text-shadow:0 2px 18px rgba(0,0,0,.25)}
+  .hello[hidden]{display:none}
+  .hero .eyebrow.team{font-size:1.35rem;letter-spacing:.22em;color:#fff}
+  .hero h1{font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.05;margin:18px 0 18px;color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.25)}
+  .hero p.lead{font-size:clamp(1.05rem,2.2vw,1.3rem);color:#eef6f7;max-width:560px}
+  .cta{display:inline-flex;gap:10px;align-items:center;margin-top:32px;background:#fff;color:var(--ink);border:0;cursor:pointer;font:inherit;padding:14px 26px;border-radius:999px;font-weight:600;font-size:.95rem;transition:background .2s,transform .2s}
+  .cta:hover{background:var(--foam);transform:translateY(-1px)}
+  .fab{position:fixed;right:18px;bottom:18px;z-index:40;background:var(--ink);color:#fff;box-shadow:0 10px 30px -10px rgba(18,50,74,.6);margin:0;opacity:0;pointer-events:none;transform:translateY(10px)}
+  .fab.show{opacity:1;pointer-events:auto;transform:none}
+  .fab:hover{background:var(--ocean)}
+
+  /* contact sheet */
+  .sheet-bg{position:fixed;inset:0;background:rgba(10,30,45,.45);backdrop-filter:blur(3px);z-index:50;opacity:0;pointer-events:none;transition:opacity .25s}
+  .sheet{position:fixed;left:50%;bottom:0;transform:translate(-50%,100%);width:min(560px,100%);background:var(--white);border-radius:24px 24px 0 0;padding:22px 22px 28px;z-index:51;transition:transform .3s ease;box-shadow:0 -10px 40px -10px rgba(0,0,0,.3)}
+  .open .sheet-bg{opacity:1;pointer-events:auto}
+  .open .sheet{transform:translate(-50%,0)}
+  .sheet .grab{width:44px;height:5px;border-radius:9px;background:var(--line);margin:0 auto 16px}
+  .sheet h3{font-size:1.35rem;margin-bottom:4px}
+  .sheet .sub{color:var(--muted);font-size:.92rem;margin-bottom:18px}
+  .sheet .close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;border:0;background:var(--foam);color:var(--ink);font-size:1.2rem;cursor:pointer}
+  .person{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+  .person img{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:center 20%}
+  .person .nm{font-weight:600}
+  .person .rl{font-size:.82rem;color:var(--muted)}
+  .actions{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 10px;border-radius:14px;text-decoration:none;font-weight:600;font-size:.95rem}
+  .btn.call{background:var(--ink);color:#fff}
+  .btn.sms{background:var(--foam);color:var(--ink);border:1px solid #cfe5e8}
+  .btn:hover{filter:brightness(1.08)}
+  .num-note{grid-column:1/-1;font-size:.8rem;color:var(--muted);text-align:center}
+  .waves{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:110px;display:block}
+
+  section{padding:72px 0}
+  .section-head{display:flex;align-items:baseline;gap:16px;margin-bottom:36px}
+  .section-head h2{font-size:clamp(1.7rem,3.6vw,2.2rem);font-weight:800}
+  .section-head .eyebrow{color:var(--sea)}
+
+  /* Benefits */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.grid{grid-template-columns:1fr}.card.wide{grid-column:auto}}
+  .grid.g3{grid-template-columns:repeat(3,1fr);margin-top:16px}
+  @media (max-width:560px){.grid.g3{grid-template-columns:1fr}}
+  .card.feature{background:linear-gradient(135deg,#12324a 0%,#1f6f8b 100%);border-color:transparent;color:#fff}
+  .card.feature h3{color:#fff}
+  .card.feature p{color:#dbeaef}
+  .card.feature .ico{background:rgba(255,255,255,.14);color:#fff}
+  .card .num{font-family:Montserrat,sans-serif;font-weight:800;font-size:3.2rem;line-height:1;color:var(--ocean);margin-bottom:12px}
+  .highlight{position:relative;overflow:hidden;background:linear-gradient(135deg,#12324a 0%,#1f6f8b 100%);color:#fff;border-radius:24px;padding:40px 40px 36px;margin-bottom:16px}
+  .highlight::after{content:"";position:absolute;right:-60px;bottom:-80px;width:340px;height:340px;border-radius:50%;border:40px solid rgba(191,225,230,.08)}
+  .hl-eyebrow{font-family:Montserrat,sans-serif;font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:#fff}
+  .hl-title{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;line-height:1.08;margin:12px 0 14px;color:#fff}
+  .hl-sub{color:#dbeaef;max-width:620px;font-size:1.05rem;position:relative;z-index:1}
+  .hl-points{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px;position:relative;z-index:1}
+  .hl-points li{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:16px 18px;color:#d5e3ea;font-size:.92rem;line-height:1.4}
+  .hl-points span{display:block;font-family:Montserrat,sans-serif;font-weight:800;font-size:1.35rem;color:#fff;margin-bottom:4px}
+  @media (max-width:700px){.highlight{padding:30px 22px 24px}.hl-points{grid-template-columns:1fr}}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:26px 24px;transition:transform .2s,box-shadow .2s}
+  .card:hover{transform:translateY(-3px);box-shadow:0 12px 28px -18px rgba(18,50,74,.35)}
+  .card .ico{width:40px;height:40px;border-radius:12px;background:var(--foam);display:grid;place-items:center;margin-bottom:16px;color:var(--ocean)}
+  .card h3{font-size:1.15rem;margin-bottom:6px}
+  .card p{color:var(--muted);font-size:.95rem}
+  .card strong{color:var(--ink);font-weight:700}
+  .card.wide{grid-column:span 2}
+  .card.stat{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .card.stat .num{font-family:Montserrat,sans-serif;font-weight:800;font-size:3.4rem;line-height:1;color:#bfe1e6}
+  .card.stat p{color:#d5e3ea;margin-top:10px}
+  .card.stat h3{color:#fff;margin-top:12px;margin-bottom:0}
+  .card.stat h3+p{margin-top:4px}
+  .card.stat .unit{font-size:1rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-left:8px;color:#9fc9d2}
+
+  /* Process */
+  .process{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .steps{list-style:none;position:relative}
+  .steps::before{content:"";position:absolute;left:8px;top:18px;top:10px;bottom:10px;width:2px;background:linear-gradient(var(--sea),var(--sand-2))}
+  .step{position:relative;display:grid;grid-template-columns:18px 1fr;gap:22px;padding:0 0 30px}
+  .step:last-child{padding-bottom:0}
+  .step .n{width:18px;height:18px;border-radius:50%;background:var(--white);border:4px solid var(--sea);margin-top:12px;position:relative;z-index:1}
+  .step h3{font-size:1.25rem;margin:6px 0 6px}
+  .step p{color:var(--muted);max-width:640px}
+  .tag{display:inline-block;margin-top:10px;background:var(--sand);border:1px solid var(--sand-2);color:var(--ocean);font-size:.82rem;font-weight:500;padding:5px 12px;border-radius:999px}
+
+  /* Contact */
+  .contact{background:var(--ink);color:#fff;position:relative;padding:96px 0 64px}
+  .contact .waves-top{position:absolute;top:-1px;left:0;width:100%;height:70px;transform:rotate(180deg)}
+  .contact h2{font-size:clamp(1.7rem,4vw,2.5rem);font-style:italic;font-weight:800}
+  .contact .eyebrow{color:#9fc9d2;margin-top:12px}
+  .agents{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:40px}
+  .agent{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:20px;display:grid;grid-template-columns:96px 1fr;gap:18px;align-items:center}
+  .agent .photo{width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:center 20%;display:block;border:2px solid rgba(191,225,230,.5)}
+  .agent .body{min-width:0}
+  .agent .actions .btn.call{background:#fff;color:var(--ink)}
+  .agent .actions .btn.sms{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+  .agent .actions{margin-top:14px}
+  .agent .role{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:#9fc9d2}
+  .agent .name{font-family:Montserrat,sans-serif;font-weight:700;font-size:1.5rem;margin:2px 0 2px}
+  .agent .ph{color:#d5e3ea;font-size:1rem}
+  footer{font-family:Montserrat,sans-serif;text-align:center;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#7f9aa8;padding-top:48px}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap topbar">
+    <img class="logo" src="img/logo.png" alt="Harcourts Property Hub">
+  </div>
+  <div class="wrap inner">
+    <div class="eyebrow team">Team <b>Genc</b></div>
+    
+    <p class="hello" id="hello" hidden></p>
+    <h1>Off Market<br>Campaign</h1>
+    <p class="lead" id="lead">Sell privately, test the market and keep control, with no upfront cost and no stress.</p>
+    <button class="cta" type="button" data-contact>Contact us <span aria-hidden="true">→</span></button>
+  </div>
+  <svg class="waves" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 60 C 240 20 480 100 720 60 S 1200 20 1440 60 V110 H0Z" fill="#bfe1e6" opacity=".35"/>
+    <path d="M0 80 C 260 50 520 110 780 78 S 1260 50 1440 82 V110 H0Z" fill="#f6f1e7"/>
+  </svg>
+</header>
+
+<main>
+<section>
+  <div class="wrap">
+    <div class="section-head reveal"><h2>Why go off market</h2></div>
+    <div class="highlight reveal">
+      <div class="hl-eyebrow">The off market advantage</div>
+      <h3 class="hl-title">No cost. No stress.</h3>
+      <p class="hl-sub">Sell with zero advertising spend and no upfront cost. Real buyers, real feedback and written offers show you exactly what your home is worth, before you decide to sell.</p>
+      <ul class="hl-points">
+        <li><span>$0</span>advertising &amp; upfront cost</li>
+        <li><span>Private</span>exclusive access for serious, pre-qualified buyers</li>
+        <li><span>Real data</span>buyer feedback &amp; offers in writing</li>
+      </ul>
+    </div>
+    <div class="grid">
+      <div class="card reveal">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+        <h3>Private competition</h3>
+        <p>Exclusive early access gets buyers moving fast with their best offer.</p>
+      </div>
+      <div class="card wide reveal">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.6c2.5.2 4.3 1.9 5 5.4"/></svg></div>
+        <h3>Pre-qualified buyers + open database</h3>
+        <p>The only agency with an open database: <strong>300 open homes a week</strong> and <strong>around 1,200 buyers a month</strong>, all within reach of your home.</p>
+      </div>
+      <div class="card reveal">
+        <div class="num">40+</div>
+        <p><strong>Buyers Agencies</strong> we work with. We send them your property's private Team Genc link to bring in extra buyers.</p>
+      </div>
+      </div>
+    <div class="grid g3">
+      <div class="card feature reveal">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div>
+        <h3>Price &amp; property feedback</h3>
+        <p>Every buyer gives us honest feedback on your property and price, even if it&rsquo;s not right for them.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></div>
+        <h3>Offers in writing</h3>
+        <p>Every offer is presented on paper, in writing.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div>
+        <h3>Seller update</h3>
+        <p>Expect buyer feedback straight after each inspection, and a vendor report from us weekly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="wrap">
+    <div class="section-head reveal"><h2>The process</h2></div>
+    <ul class="steps">
+      <li class="step reveal"><div class="n"></div><div><h3>Agency agreement</h3><p>We&rsquo;ll just need a quick 4-week agency agreement signed first. It covers both the seller and the agent if anyone gets hurt on the property, and it lets us legally present offers to you.</p></div></li>
+      <li class="step reveal"><div class="n"></div><div><h3>Prepare for sale</h3><p>Photos and floor plan to get your property ready for buyers. We make sure your home is presented at its best from day one.</p></div></li>
+      <li class="step reveal"><div class="n"></div><div><h3>Match pre-qualified buyers</h3><p>Your Team Genc private link is shared with pre-qualified buyers from our database and our network of 40+ Buyers Agencies, so only serious, ready buyers see your home.</p></div></li>
+      <li class="step reveal"><div class="n"></div><div><h3>Group inspection sessions</h3><p>Knowing it is an exclusive off market opportunity, buyers engage more and compete for your home. Set sessions also keep it convenient for you.</p><span class="tag">e.g. Wed 10:00am and/or 2:00pm session</span></div></li>
+      <li class="step reveal"><div class="n"></div><div><h3>Feedback on property &amp; price</h3><p>After each session, we report back on what buyers said about the home and the price, so every decision you make is backed by real market feedback.</p></div></li>
+      <li class="step reveal"><div class="n"></div><div><h3>Negotiation</h3><p>We negotiate the strongest written offers on your behalf, using the competition between buyers to push for the best price and terms.</p></div></li>
+      <li class="step reveal"><div class="n"></div><div><h3>Sell or Plan B</h3><p>Accept the right offer, or talk with us about Plan B.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <svg class="waves-top" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 35 C 300 5 600 65 900 35 S 1300 10 1440 30 V70 H0Z" fill="#fffdf9"/>
+  </svg>
+  <div class="wrap">
+    <h2 class="reveal">Choosing the right agent matters.</h2>
+    <div class="agents">
+      <div class="agent reveal">
+        <img class="photo" src="img/isaac.jpg" alt="Isaac Genc">
+        <div class="body"><div class="role">Lead Agent</div><div class="name">Isaac Genc</div><div class="ph">0416 222 262</div><div class="actions"><a class="btn call" href="tel:+61416222262"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call</a><a class="btn sms" href="sms:+61416222262?&amp;body=Hi%20Isaac%2C%20my%20name%20is%20%5BYour%20name%5D%2C%20I%20would%20like%20to%20know%20more%20about%20the%20exclusive%20off-market%20process%20that%20Team%20Genc%20runs.%20Please%20give%20me%20a%20call%20to%20discuss." data-sms="+61416222262" data-agent="Isaac"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>SMS</a></div></div>
+      </div>
+      <div class="agent reveal">
+        <img class="photo" src="img/mauricio.jpg" alt="Mauricio Montes">
+        <div class="body"><div class="role">Sales Agent</div><div class="name">Mauricio Montes</div><div class="ph">0422 142 849</div><div class="actions"><a class="btn call" href="tel:+61422142849"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call</a><a class="btn sms" href="sms:+61422142849?&amp;body=Hi%20Mauricio%2C%20my%20name%20is%20%5BYour%20name%5D%2C%20I%20would%20like%20to%20know%20more%20about%20the%20exclusive%20off-market%20process%20that%20Team%20Genc%20runs.%20Please%20give%20me%20a%20call%20to%20discuss." data-sms="+61422142849" data-agent="Mauricio"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>SMS</a></div></div>
+      </div>
+    </div>
+    <footer>Team <b>Genc</b> · Harcourts Property Hub</footer>
+  </div>
+</section>
+</main>
+
+<button class="cta fab" type="button" data-contact><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg> Contact</button>
+<div id="sheetwrap">
+  <div class="sheet-bg" data-close></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div class="grab"></div>
+    <button class="close" type="button" data-close aria-label="Close">×</button>
+    <h3 id="sheet-title">Contact Team Genc</h3>
+    <p class="sub">Tap to call or send an SMS.</p>
+    <div class="person"><img src="img/isaac.jpg" alt=""><div><div class="nm">Isaac Genc</div><div class="rl">Lead Agent · 0416 222 262</div></div><div class="actions"><a class="btn call" href="tel:+61416222262"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call</a><a class="btn sms" href="sms:+61416222262?&amp;body=Hi%20Isaac%2C%20my%20name%20is%20%5BYour%20name%5D%2C%20I%20would%20like%20to%20know%20more%20about%20the%20exclusive%20off-market%20process%20that%20Team%20Genc%20runs.%20Please%20give%20me%20a%20call%20to%20discuss." data-sms="+61416222262" data-agent="Isaac"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>SMS</a></div></div>
+    <div class="person"><img src="img/mauricio.jpg" alt=""><div><div class="nm">Mauricio Montes</div><div class="rl">Sales Agent · 0422 142 849</div></div><div class="actions"><a class="btn call" href="tel:+61422142849"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call</a><a class="btn sms" href="sms:+61422142849?&amp;body=Hi%20Mauricio%2C%20my%20name%20is%20%5BYour%20name%5D%2C%20I%20would%20like%20to%20know%20more%20about%20the%20exclusive%20off-market%20process%20that%20Team%20Genc%20runs.%20Please%20give%20me%20a%20call%20to%20discuss." data-sms="+61422142849" data-agent="Mauricio"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>SMS</a></div></div>
+  </div>
+</div>
+
+<script>
+  (function(){
+    function clean(v,max){v=(v||'').replace(/_/g,' ').replace(/[^A-Za-z\u00C0-\u017F' .-]/g,'').replace(/\s+/g,' ').trim().slice(0,max);
+      return v.split(' ').map(function(w){return w.charAt(0).toUpperCase()+w.slice(1);}).join(' ');}
+    var q;try{q=new URLSearchParams(location.search);}catch(e){q=null;}
+    var name=q?clean(q.get('n'),30):'', sub=q?clean(q.get('s'),30):'';
+    if(name){var h=document.getElementById('hello');h.textContent='Hi '+name+',';h.hidden=false;}
+    if(name||sub){document.getElementById('lead').textContent='Here\u2019s how Team Genc can sell your '+(sub?sub+' ':'')+'home privately, with no upfront cost and no stress.';}
+    document.querySelectorAll('[data-sms]').forEach(function(a){
+      var msg='Hi '+a.getAttribute('data-agent')+', my name is '+(name||'[Your name]')+', I would like to know more about the exclusive off-market process that Team Genc runs. Please give me a call to discuss.';
+      a.setAttribute('href','sms:'+a.getAttribute('data-sms')+'?&body='+encodeURIComponent(msg));});
+  })();
+  (function(){
+    var w=document.getElementById('sheetwrap');
+    function open(){w.classList.add('open');}
+    function close(){w.classList.remove('open');}
+    document.querySelectorAll('[data-contact]').forEach(function(b){b.addEventListener('click',open)});
+    document.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',close)});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+    var fab=document.querySelector('.fab'),hero=document.querySelector('.hero');
+    function onScroll(){fab.classList.toggle('show',window.scrollY>hero.offsetHeight*0.7);}
+    window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  })();
+  (function(){
+    var els=document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+    },{threshold:.12});
+    els.forEach(function(e){io.observe(e)});
+  })();
+</script>
+</body>
+</html>
